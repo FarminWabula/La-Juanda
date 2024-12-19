@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+    .login-container {
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+      <p class="error" id="errorMessage"></p>
+    </form>
+  </div>
+
+  <script>
+    // Default username and password
+    const defaultUser = {
+      username: "user123",
+      password: "password123"
+    };
+
+    // Store the default user in localStorage if not already stored
+    if (!localStorage.getItem("user")) {
+      localStorage.setItem("user", JSON.stringify(defaultUser));
+    }
+
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("errorMessage");
+
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const usernameInput = document.getElementById("username").value;
+      const passwordInput = document.getElementById("password").value;
+
+      // Retrieve user from localStorage
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      // Validate credentials
+      if (usernameInput === storedUser.username && passwordInput === storedUser.password) {
+        alert("Login successful!");
+        errorMessage.textContent = "";
+        // Redirect to another page (optional)
+        // window.location.href = "home.html";
+      } else {
+        errorMessage.textContent = "Username or password is incorrect.";
+      }
+    });
+  </script>
+</body>
+</html>
